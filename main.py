@@ -1,26 +1,28 @@
-import tkinter as tk
-from lib.lib import *
+from classes.GUI import GUI
 
-root = tk.Tk()
-root.title("Kalkulacka")
-root.geometry("600x400+1000+500")
+GUI = GUI("Kalkulačka", 400, 600)
 
-lable = tk.Label(text = "Kalkulacka")
-lable.pack()
+GUI.makeEntry(0, 0)
 
-# Buttons
-tk.Button(root, text="1", command=lambda: pressedKey("1")).pack()
-tk.Button(root, text="2", command=lambda: pressedKey("2")).pack()
-tk.Button(root, text="3", command=lambda: pressedKey("3")).pack()
-tk.Button(root, text="4", command=lambda: pressedKey("4")).pack()
-tk.Button(root, text="5", command=lambda: pressedKey("5")).pack()
-tk.Button(root, text="6", command=lambda: pressedKey("6")).pack()
-tk.Button(root, text="7", command=lambda: pressedKey("7")).pack()
-tk.Button(root, text="8", command=lambda: pressedKey("8")).pack()
-tk.Button(root, text="9", command=lambda: pressedKey("9")).pack()
-tk.Button(root, text="+", command=lambda: pressedKey("+")).pack()
-tk.Button(root, text="-", command=lambda: pressedKey("-")).pack()
-tk.Button(root, text="*", command=lambda: pressedKey("*")).pack()
-tk.Button(root, text="÷", command=lambda: pressedKey("÷")).pack()
+# Numbers
+GUI.makeButton("1", 5, 0)
+GUI.makeButton("2", 5, 1)
+GUI.makeButton("3", 5, 2)
+GUI.makeButton("4", 4, 0)
+GUI.makeButton("5", 4, 1)
+GUI.makeButton("6", 4, 2)
+GUI.makeButton("7", 3, 0)
+GUI.makeButton("8", 3, 1)
+GUI.makeButton("9", 3, 2)
+GUI.makeButton("0", 6, 0)
 
-root.mainloop()
+# Operations
+GUI.makeButton("AC", 1, 2)
+GUI.makeButton("⌫", 1, 3)
+GUI.makeButton("/", 2, 3)
+GUI.makeButton("*", 3, 3)
+GUI.makeButton("-", 4, 3)
+GUI.makeButton("+", 5, 3)
+GUI.makeButton("=", 6, 3)
+
+GUI.startApp()
