@@ -98,6 +98,10 @@ class Gui:
     def typed(self, event):
         acceptableChars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "+", "-", "*", "/", "=", "(", ")", "."]
         currentText = self.entry.get()
+        deleteKeyCode = 855638143
+
+        if event.keycode == deleteKeyCode:
+            self.entry.delete(len(self.entry.get()) - 1, END)
 
         # If current text == entry text - can not delete numbers
         if currentText == self.entryText.get() and event.char not in acceptableChars:
@@ -117,8 +121,6 @@ class Gui:
             self.calculate()
             # Dont add = to entry
             return "break"
-        elif event.keysym == 'BackSpace':
-            self.entry.delete(len(self.entry.get()) - 1, END)
         
     def calculate(self):
         try:
@@ -127,7 +129,4 @@ class Gui:
             messagebox.showerror("Error", "Syntax Error")
         else:
             self.entryText.set(self.operation)
-
-    @staticmethod    
-    def deleteLastChar(entry):
-        entry.delete(len(entry.get()) - 1, END)
+            
