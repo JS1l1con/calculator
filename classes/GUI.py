@@ -7,36 +7,41 @@ class Gui:
         self.x = x
         self.y = y
 
+        self.root.grid_rowconfigure(0, weight =1 )
+        self.root.grid_columnconfigure(0, weight =1 )
+
         self.entryText = StringVar()
 
         self.setTitle()
         self.makeWindow()
 
         # Make entry
-        self.makeEntry(0, 5)
+        self.makeEntry(0, 0)
+
+        self.makeButton("AC", 1, 1)
+        self.makeButton("⌫", 1, 2)
+        self.makeButton("/", 1, 3)
+
+        self.makeButton("7", 2, 0)
+        self.makeButton("8", 2, 1)
+        self.makeButton("9", 2, 2)
+        self.makeButton("*", 2, 3)
+
+        self.makeButton("4", 3, 0)
+        self.makeButton("5", 3, 1)
+        self.makeButton("6", 3, 2)
+        self.makeButton("-", 3, 3)
+
+        self.makeButton("1", 4, 0)
+        self.makeButton("2", 4, 1)
+        self.makeButton("3", 4, 2)
+        self.makeButton("+", 4, 3)
 
         # Numbers
-        self.makeButton("1", 6, 0)
-        self.makeButton("2", 6, 1)
-        self.makeButton("3", 6, 2)
-        self.makeButton("4", 5, 0)
-        self.makeButton("5", 5, 1)
-        self.makeButton("6", 5, 2)
-        self.makeButton("7", 4, 0)
-        self.makeButton("8", 4, 1)
-        self.makeButton("9", 4, 2)
-        self.makeButton("0", 7, 0)
-
-        # Operations
-        self.makeButton("AC", 2, 2)
-        self.makeButton("⌫", 2, 3)
-        self.makeButton("/", 3, 3)
-        self.makeButton("*", 4, 3)
-        self.makeButton("-", 5, 3)
-        self.makeButton("+", 6, 3)
-        self.makeButton("=", 7, 3)
-        self.makeButton("(", 7, 1)
-        self.makeButton(")", 7, 2)
+        self.makeButton("0", 5, 0)
+        self.makeButton("(", 5, 1)
+        self.makeButton(")", 5, 2)
+        self.makeButton("=", 5, 3)
 
     def setTitle(self):
         self.root.title(self.title)
@@ -52,14 +57,14 @@ class Gui:
         self.root.geometry(f"{self.x}x{self.y}+{centerX}+{centerY}")
 
     def makeButton(self, key, row, column):
-        Button(self.root, text = key, height = 3, width = 5, command = lambda: self.pressed(key)).grid(row = row, column = column)
+        Button(self.root, text = key, height = 3, width = 5, command = lambda: self.pressed(key)).grid(row = row, column = column, columnspan = 1)
     
     def makeEntry(self, row, column):
         self.entry = Entry(self.root, textvariable = self.entryText)
-        self.entryText.set("") # nově přidáno
+        self.entryText.set("")
         self.entry.bind("<Key>", self.typed)
         
-        self.entry.grid(row = row, column = column)
+        self.entry.grid(row = row, column = column, columnspan = 4)
 
     def makeLabel(self, text, row, column):
         self.label = Label(self.root,text = text)
@@ -101,6 +106,7 @@ class Gui:
     def calculate(self):
         try:
             self.operation = eval(self.entry.get())
-            self.makeLabel(self.operation, 10, 10)
         except:
             messagebox.showerror("Error", "Syntax Error")
+        else:
+            self.makeLabel(self.operation, 10, 10)
